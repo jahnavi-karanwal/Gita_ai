@@ -12,7 +12,8 @@ class GitaRetriever:
         model_name="BAAI/bge-small-en-v1.5"
     ):
 
-        self.model = SentenceTransformer(model_name)
+        self.model_name = model_name
+        self.model = None
 
         self.index = faiss.read_index(index_path)
 
@@ -20,7 +21,9 @@ class GitaRetriever:
             self.metadata = json.load(f)
 
     def search(self, query, k=5):
-
+        if self.model is None:
+            print("Loading embedding model...")
+            self.model = SentenceTransformer(self.model_name)
         embedding = self.model.encode(
             [query],
             convert_to_numpy=True,
