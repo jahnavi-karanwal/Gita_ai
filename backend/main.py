@@ -9,12 +9,15 @@ app = FastAPI(title="KrishnaGPT API")
 # Allow Next.js frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "https://gita-ai-omega.vercel.app",
+        "https://gita-p1ks8fe3u-jahnavi-karanwals-projects.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 bot = GitaChatbot()
 
 
